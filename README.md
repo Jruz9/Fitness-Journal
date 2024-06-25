@@ -2,16 +2,18 @@
 
 # ABOUT
 ----
-Fitness Journal is a application that allows users to track their workouts.
+Fitness Journal is an application that allows users to track their workouts.
+Enables users to input each set and rep with weight and duration.Additionally,
+it wil allow users to make workout plans in week format.
 
-# Features
+# FEATURES
 ---
 - Workout Journal
 - Workout library
-- workout routines lists
+- workout plans/routines
 - workout detail home screen. 
 
-# Technologies
+# TECHNOLOGIES
 ---
 - Backend
   - Java 17   

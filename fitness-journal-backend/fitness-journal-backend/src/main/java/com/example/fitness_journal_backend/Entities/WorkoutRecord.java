@@ -25,8 +25,6 @@ public class WorkoutRecord {
     @Column(nullable = false)
     private String workoutName;
     //A list of workouts ex: [[][][]]
-    @OneToMany(mappedBy = "workout")
-    private List<Workout> workoutRecord;
 
     //Nullary
     public WorkoutRecord(){
@@ -36,13 +34,11 @@ public class WorkoutRecord {
      * Creates the Workout record object.
      * @param id: The id tag of the workout record
      * @param time: The time when the workout record was made
-     * @param workoutRecord: A list of exercises completed.
      */
-    public WorkoutRecord(Long id, Date time, String workoutName, List<Workout> workoutRecord) {
+    public WorkoutRecord(Long id, Date time, String workoutName) {
         this.id = id;
         this.time = time;
         this.workoutName = workoutName;
-        this.workoutRecord = workoutRecord;
     }
 
     public Long getId() {
@@ -59,14 +55,6 @@ public class WorkoutRecord {
 
     public void setTime(Date time) {
         this.time = time;
-    }
-
-    public List<Workout> getWorkoutRecord() {
-        return workoutRecord;
-    }
-
-    public void setWorkoutRecord(List<Workout> workoutRecord) {
-        this.workoutRecord = workoutRecord;
     }
 
     public String getWorkoutName() {

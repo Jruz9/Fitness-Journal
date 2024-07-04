@@ -11,14 +11,15 @@ it wil allow users to make workout plans in week format.
 - Workout Journal
 - Workout library
 - workout plans/routines
-- workout detail home screen. 
+- workout detail home screen
+- Measurement Recording 
 
 # TECHNOLOGIES
 ---
 - Backend
   - Java 17   
   - Spring boot 3.1.3
-  - mysql
+  - Mysql
 - Frontend
-  - react
-  - node.js
+  - React
+  - Node.js

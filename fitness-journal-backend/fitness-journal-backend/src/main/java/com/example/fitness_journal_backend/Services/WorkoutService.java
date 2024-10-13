@@ -8,6 +8,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -17,12 +18,15 @@ import java.util.List;
 public class WorkoutService {
 
     @Autowired
-    public WorkoutRepo workoutRepo;
+    WorkoutRepo workoutRepo;
 
-    public List<Workout>findByWorkoutId(@NonNull Long workoutID){
-        return  workoutRepo.findAll(workoutID);
+    public Optional<Workout>findByWorkoutId(@NonNull Long workoutID){
+        return  workoutRepo.findByWorkoutId(workoutID);
     }
 
+    public Workout saveWorkout(Workout workout){
+        return workoutRepo.save(workout); // code editor is giving errors hmmm OwO
+    }
 
 
 

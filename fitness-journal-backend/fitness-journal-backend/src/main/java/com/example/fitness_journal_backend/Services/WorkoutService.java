@@ -26,8 +26,5 @@ public class WorkoutService {
 
     public Workout saveWorkout(Workout workout){
         return workoutRepo.save(workout); // code editor is giving errors hmmm OwO
-    }
-
-
-
+    }   
 }

@@ -1,6 +1,8 @@
 package com.example.fitness_journal_backend.DAO;
 
 import com.example.fitness_journal_backend.Entities.Workout;
+import com.example.fitness_journal_backend.Entities.WorkoutRecord;
+
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 

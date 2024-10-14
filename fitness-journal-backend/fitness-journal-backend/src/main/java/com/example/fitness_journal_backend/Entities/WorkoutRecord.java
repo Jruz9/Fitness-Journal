@@ -4,7 +4,7 @@ import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
+import java.time.LocalDate; //changed from date since old date is has issues for more current systems. 
 import java.util.List;
 
 /**
@@ -19,9 +19,9 @@ public class WorkoutRecord {
     @Nullable
     @GeneratedValue
     private Long id;
-    @DateTimeFormat
+    @DateTimeFormat(pattern = "dd-MMM-YYYY")
     @Column
-    private Date time;
+    private LocalDate workoutDate; 
     @Column(nullable = false)
     private String workoutName;
     //A list of workouts ex: [[][][]]
@@ -33,11 +33,11 @@ public class WorkoutRecord {
     /**
      * Creates the Workout record object.
      * @param id: The id tag of the workout record
-     * @param time: The time when the workout record was made
+     * @param workoutDate: The date when the workout record was created
      */
-    public WorkoutRecord(Long id, Date time, String workoutName) {
+    public WorkoutRecord(Long id, LocalDate workoutDate, String workoutName) {
         this.id = id;
-        this.time = time;
+        this.workoutDate = workoutDate;
         this.workoutName = workoutName;
     }
 
@@ -49,14 +49,6 @@ public class WorkoutRecord {
         this.id = id;
     }
 
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
-    }
-
     public String getWorkoutName() {
         return workoutName;
     }
@@ -65,5 +57,14 @@ public class WorkoutRecord {
         this.workoutName = workoutName;
     }
 
+    public LocalDate getWorkoutDate() {
+        return workoutDate;
+    }
 
+    public void setWorkoutDate(LocalDate workoutDate) {
+        this.workoutDate = workoutDate;
+    }
+
+
+    // TODO: Create the foreign key connection with workout 
 }

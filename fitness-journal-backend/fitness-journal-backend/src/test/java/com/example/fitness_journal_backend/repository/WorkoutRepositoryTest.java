@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.example.fitness_journal_backend.DAO.WorkoutRepo;
 import com.example.fitness_journal_backend.Entities.Workout;
 import com.example.fitness_journal_backend.Services.WorkoutService;
 

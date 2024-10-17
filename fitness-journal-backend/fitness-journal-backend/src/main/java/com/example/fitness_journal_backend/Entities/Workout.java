@@ -24,7 +24,7 @@ public class Workout {
     private double duration;
 
     @ManyToOne
-    @JoinColumn(name="workoutRecord_id")
+    @JoinColumn(name="workout_id")
     private WorkoutRecord workoutRecord;
 
 
@@ -88,7 +88,6 @@ public class Workout {
     public void setId(int id) {
         this.id = id;
     }
-    //TODO Create the forign key connection with the workoutRecord.
     // Here is a resource to help: https://stackoverflow.com/questions/4099237/how-to-map-a-2-d-matrix-in-java-to-hibernate-jpa
     // https://levelup.gitconnected.com/how-to-deal-with-nested-entities-in-spring-controller-8bb404eae3a2
     // https://stackoverflow.com/questions/25415738/how-to-persist-arraylist-within-spring-entity-class (for entity in 1d)

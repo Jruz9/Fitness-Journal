@@ -31,8 +31,6 @@ public class WorkoutRecordService {
     public List<WorkoutRecord> findByWorkoutRecordNames(String name){
         return workoutRecordRepo.findWorkoutRecordsbyworkoutName(name);
     }
-
-    //TODO Find a way to cascade delete the workouts linked to workout
     public void deleteWorkoutRecord(WorkoutRecord workoutRecord){
         workoutRecordRepo.delete(workoutRecord); //ide errors could be due to 1 to many relationship
     }

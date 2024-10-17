@@ -1,6 +1,4 @@
 package com.example.fitness_journal_backend.Entities;
-
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -16,8 +14,7 @@ import java.util.List;
 public class WorkoutRecord {
 
     @Id
-    @Nullable
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @DateTimeFormat(pattern = "dd-MMM-YYYY")
     @Column
@@ -25,6 +22,8 @@ public class WorkoutRecord {
     @Column(nullable = false)
     private String workoutName;
     //A list of workouts ex: [[][][]]
+    @OneToMany(mappedBy = "workout", cascade = CascadeType.ALL)
+    private List<Workout> workoutData;
 
     //Nullary
     public WorkoutRecord(){
@@ -64,7 +63,4 @@ public class WorkoutRecord {
     public void setWorkoutDate(LocalDate workoutDate) {
         this.workoutDate = workoutDate;
     }
-
-
-    // TODO: Create the foreign key connection with workout 
 }

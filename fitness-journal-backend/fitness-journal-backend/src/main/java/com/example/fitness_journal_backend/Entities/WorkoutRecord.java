@@ -63,4 +63,11 @@ public class WorkoutRecord {
     public void setWorkoutDate(LocalDate workoutDate) {
         this.workoutDate = workoutDate;
     }
+    public List<Workout> getWorkoutData() {
+        return workoutData;
+    }
+
+    public void setWorkoutData(List<Workout> workoutData) {
+        this.workoutData = workoutData;
+    }
 }

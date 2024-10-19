@@ -1,10 +1,12 @@
 package com.example.fitness_journal_backend.Services;
 
 import com.example.fitness_journal_backend.DAO.WorkoutRecordRepo;
+import com.example.fitness_journal_backend.Entities.Workout;
 import com.example.fitness_journal_backend.Entities.WorkoutRecord;
 
 import jakarta.annotation.Nonnull;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +37,16 @@ public class WorkoutRecordService {
         workoutRecordRepo.delete(workoutRecord); //ide errors could be due to 1 to many relationship
     }
 
+    public List<Workout> getAllDataFromWorkoutRecord(Long Id){
+        Optional<WorkoutRecord> workoutRecord= workoutRecordRepo.findById(Id);
+        List<Workout> wkData=workoutRecord.get().getWorkoutData(); //wonder if it does a iterable error :thonk
+        return wkData;
+    }
+
+    public List<WorkoutRecord> getAllWorkoutRecordsFromLocalDate(LocalDate date){
+        List<WorkoutRecord> workoutRecordAtThatDate=workoutRecordRepo.findWorkoutRecordByLocalDate(date);
+        return workoutRecordAtThatDate;
+    }
     
 
 

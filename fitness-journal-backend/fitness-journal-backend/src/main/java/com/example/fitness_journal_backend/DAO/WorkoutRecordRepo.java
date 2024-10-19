@@ -14,11 +14,13 @@ public interface WorkoutRecordRepo extends JpaRepository<WorkoutRecord,Long> {
 
     public Optional<WorkoutRecord> findWorkoutRecordById(Long id);
 
-    List<WorkoutRecord> findWorkoutRecordByDate(LocalDate time);
+    List<WorkoutRecord> findWorkoutRecordByLocalDate(LocalDate time);
 
     List<WorkoutRecord> findWorkoutRecordsbyworkoutName(String workoutName);
 
     @Override
     public List<WorkoutRecord> findAll();
+    
+
 
 }

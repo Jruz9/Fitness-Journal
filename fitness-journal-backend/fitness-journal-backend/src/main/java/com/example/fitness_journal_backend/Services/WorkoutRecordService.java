@@ -47,7 +47,4 @@ public class WorkoutRecordService {
         List<WorkoutRecord> workoutRecordAtThatDate=workoutRecordRepo.findWorkoutRecordByLocalDate(date);
         return workoutRecordAtThatDate;
     }
-    
-
-
 }

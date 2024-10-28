@@ -1,5 +1,7 @@
 package com.example.fitness_journal_backend.Entities;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.*;
 
 /**
@@ -23,11 +25,12 @@ public class Workout {
     @Column
     private double duration;
 
+    @Column
+    private LocalDate date;
+
     @ManyToOne
     @JoinColumn(name="workout_id")
     private WorkoutRecord workoutRecord;
-
-
     /**
      * A nullary empty workout object.
      */
@@ -40,13 +43,15 @@ public class Workout {
      * @param weight: The weight in LB for the exercise
      * @param rep: The repetition of the exercise
      * @param set: The total set for the exercise
+     * @param date: the Date that the workout was created
      */
-    public Workout(double duration, double weight, int rep, int set, int id) {
+    public Workout(double duration, double weight, int rep, int set, int id, LocalDate date) {
         this.duration = duration;
         this.weight = weight;
         this.rep = rep;
         this.set = set;
         this.id = id;
+        this.date=date;
     }
 
     public double getDuration() {
@@ -88,6 +93,8 @@ public class Workout {
     public void setId(int id) {
         this.id = id;
     }
+
+    
     // Here is a resource to help: https://stackoverflow.com/questions/4099237/how-to-map-a-2-d-matrix-in-java-to-hibernate-jpa
     // https://levelup.gitconnected.com/how-to-deal-with-nested-entities-in-spring-controller-8bb404eae3a2
     // https://stackoverflow.com/questions/25415738/how-to-persist-arraylist-within-spring-entity-class (for entity in 1d)
@@ -98,5 +105,9 @@ public class Workout {
 
     public void setWorkoutRecord(WorkoutRecord workoutRecord) {
         this.workoutRecord = workoutRecord;
+    }
+
+    public LocalDate getDate() {
+        return date;
     }
 }

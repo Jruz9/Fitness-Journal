@@ -44,8 +44,9 @@ public class Workout {
      * @param rep: The repetition of the exercise
      * @param set: The total set for the exercise
      * @param date: the Date that the workout was created
+     * @param workoutRecord: The Workout Record that is associated with the workouts
      */
-    public Workout(double duration, double weight, int rep, int set, int id, LocalDate date) {
+    public Workout(double duration, double weight, int rep, int set, int id, LocalDate date,WorkoutRecord workoutRecord) {
         this.duration = duration;
         this.weight = weight;
         this.rep = rep;
@@ -109,5 +110,9 @@ public class Workout {
 
     public LocalDate getDate() {
         return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }

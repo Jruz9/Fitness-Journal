@@ -27,7 +27,7 @@ import com.example.fitness_journal_backend.Services.WorkoutRecordService;
 public class WorkoutRecordController {
 
     @Autowired
-    private WorkoutRecordService wrs;
+    WorkoutRecordService wrs;
 
 
     private static final String WORKOUT_RECORD_NOT_FOUND="Could not find the workout records with the ID given";
@@ -70,12 +70,12 @@ public class WorkoutRecordController {
     public ResponseEntity<String> deleteWorkoutRecord(@PathVariable("id") Long workoutRecordId){
         log.info("Request to delete workout Record : {}",workoutRecordId);
         Optional<WorkoutRecord> deleteRecord=wrs.findByWorkoutRecordId(workoutRecordId);
-        if(!deleteRecord.isPresent()){
+        if(deleteRecord.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
             .body(String.format(WORKOUT_RECORD_NOT_FOUND, workoutRecordId));
         }
         wrs.deleteWorkoutRecord(deleteRecord.get());
-        return ResponseEntity.status(HttpStatus.OK).body("Workout Record deletion was sucessful");
+        return ResponseEntity.status(HttpStatus.OK).body("Workout Record deletion was successful");
     }
 
 

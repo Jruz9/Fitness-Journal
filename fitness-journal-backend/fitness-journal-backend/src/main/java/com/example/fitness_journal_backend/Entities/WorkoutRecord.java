@@ -2,7 +2,7 @@ package com.example.fitness_journal_backend.Entities;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDate; //changed from date since old date is has issues for more current systems. 
+import java.time.LocalDate; //changed from date since old date is having issues for more current systems.
 import java.util.List;
 
 /**
@@ -33,11 +33,15 @@ public class WorkoutRecord {
      * Creates the Workout record object.
      * @param id: The id tag of the workout record
      * @param workoutDate: The date when the workout record was created
+     * @param  workoutName: The name of the workout record
+     * @param workoutData: The array of workouts associated with the workout Record
+     *
      */
-    public WorkoutRecord(Long id, LocalDate workoutDate, String workoutName) {
+    public WorkoutRecord(Long id, LocalDate workoutDate, String workoutName,List<Workout> workoutData) {
         this.id = id;
         this.workoutDate = workoutDate;
         this.workoutName = workoutName;
+        this.workoutData=workoutData;
     }
 
     public Long getId() {

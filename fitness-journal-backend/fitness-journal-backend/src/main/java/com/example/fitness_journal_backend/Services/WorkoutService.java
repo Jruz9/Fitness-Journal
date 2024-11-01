@@ -34,6 +34,7 @@ public class WorkoutService {
     }
     //TODO In the controller class use chain the commands here for performing the actions.
     public void deleteWorkoutFromWorkoutRecord(Workout wk){
+
         workoutRepo.delete(wk);
     }
 }

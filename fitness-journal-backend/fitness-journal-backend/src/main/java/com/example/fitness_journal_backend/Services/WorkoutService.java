@@ -1,8 +1,6 @@
 package com.example.fitness_journal_backend.Services;
-import com.example.fitness_journal_backend.DAO.WorkoutRecordRepo;
 import com.example.fitness_journal_backend.DAO.WorkoutRepo;
 import com.example.fitness_journal_backend.Entities.Workout;
-import com.example.fitness_journal_backend.Entities.WorkoutRecord;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
@@ -19,22 +17,20 @@ import java.util.Optional;
 public class WorkoutService {
 
     @Autowired
-    WorkoutRepo workoutRepo;
-    WorkoutRecordService wks;
+    private WorkoutRepo workoutRepo;
+    private WorkoutRecordService wks;
 
-    public Optional<Workout>findByWorkoutId(@NonNull Long workoutID){
-        return  workoutRepo.findByWorkoutId(workoutID);
+    public Optional<Workout> findById(@NonNull Long workoutID){
+        return  workoutRepo.findById(workoutID);
     }
 
     public Workout saveWorkout(Workout workout){
-        return workoutRepo.save(workout); // code editor is giving errors hmmm OwO
+        return workoutRepo.save(workout);
     }   
     public List<Workout> getAllWorkout(){
         return workoutRepo.findAll();
     }
-    //TODO In the controller class use chain the commands here for performing the actions.
     public void deleteWorkoutFromWorkoutRecord(Workout wk){
-
         workoutRepo.delete(wk);
     }
 }

@@ -14,9 +14,9 @@ public interface WorkoutRecordRepo extends JpaRepository<WorkoutRecord,Long> {
 
     public Optional<WorkoutRecord> findWorkoutRecordById(Long id);
 
-    List<WorkoutRecord> findWorkoutRecordByLocalDate(LocalDate time);
+    List<WorkoutRecord> findWorkoutRecordByworkoutDate(LocalDate time);
 
-    List<WorkoutRecord> findWorkoutRecordsbyworkoutName(String workoutName);
+    List<WorkoutRecord> findWorkoutRecordByworkoutName(String workoutName);
 
     @Override
     public List<WorkoutRecord> findAll();

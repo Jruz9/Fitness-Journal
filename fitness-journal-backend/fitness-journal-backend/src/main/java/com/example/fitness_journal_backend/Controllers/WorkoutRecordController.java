@@ -27,7 +27,7 @@ import com.example.fitness_journal_backend.Services.WorkoutRecordService;
 public class WorkoutRecordController {
 
     @Autowired
-    WorkoutRecordService wrs;
+    private WorkoutRecordService wrs;
 
 
     private static final String WORKOUT_RECORD_NOT_FOUND="Could not find the workout records with the ID given";

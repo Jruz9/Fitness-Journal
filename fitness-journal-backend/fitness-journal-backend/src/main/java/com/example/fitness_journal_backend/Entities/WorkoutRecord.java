@@ -22,7 +22,8 @@ public class WorkoutRecord {
     @Column(nullable = false)
     private String workoutName;
     //A list of workouts ex: [[][][]]
-    @OneToMany(mappedBy = "workout", cascade = CascadeType.ALL)
+    //removed cascade https://stackoverflow.com/questions/13370221/persistentobjectexception-detached-entity-passed-to-persist-thrown-by-jpa-and-h
+    @OneToMany(mappedBy = "workoutRecord")
     private List<Workout> workoutData;
 
     //Nullary

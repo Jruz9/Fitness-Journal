@@ -31,7 +31,7 @@ public class WorkoutRecordService {
         return workoutRecordRepo.findWorkoutRecordById(id);
     }
     public List<WorkoutRecord> findByWorkoutRecordNames(String name){
-        return workoutRecordRepo.findWorkoutRecordsbyworkoutName(name);
+        return workoutRecordRepo.findWorkoutRecordByworkoutName(name);
     }
     public void deleteWorkoutRecord(WorkoutRecord workoutRecord){
         workoutRecordRepo.delete(workoutRecord); //ide errors could be due to 1 to many relationship
@@ -39,12 +39,12 @@ public class WorkoutRecordService {
 
     public List<Workout> getAllDataFromWorkoutRecord(Long Id){
         Optional<WorkoutRecord> workoutRecord= workoutRecordRepo.findById(Id);
-        List<Workout> wkData=workoutRecord.get().getWorkoutData(); //wonder if it does a iterable error :thonk
+        List<Workout> wkData=workoutRecord.get().getWorkoutData();
         return wkData;
     }
 
     public List<WorkoutRecord> getAllWorkoutRecordsFromLocalDate(LocalDate date){
-        List<WorkoutRecord> workoutRecordAtThatDate=workoutRecordRepo.findWorkoutRecordByLocalDate(date);
+        List<WorkoutRecord> workoutRecordAtThatDate=workoutRecordRepo.findWorkoutRecordByworkoutDate(date);
         return workoutRecordAtThatDate;
     }
 }

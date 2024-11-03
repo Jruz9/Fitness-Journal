@@ -9,8 +9,8 @@ import java.util.Optional;
  *
  */
 public interface WorkoutRepo extends JpaRepository<Workout,Long> {
-    
-    public List<Workout> findAllByWorkouts();
+    @Override
+    public List<Workout> findAll();
 
-    public Optional<Workout> findByWorkoutId(@Param("id")long workoutId);
+    public Optional<Workout> findById(@Param("id")long workoutId);
 }

@@ -29,18 +29,13 @@ import org.springframework.web.server.ResponseStatusException;
 public class WorkoutController {
     
     @Autowired
-     WorkoutService ws;
+     private WorkoutService ws;
 
     private static final String WORKOUT_DATA_NOT_FOUND= "Could not find the workout associated with the id";
 
     private final Logger log= LoggerFactory.getLogger(WorkoutController.class);
-    
-    
+
     // Get all workouts on database
-
-//TODO Look at the top of how the classes will interact with each controller for the cascade effect and related to both.
-
-//TODO Complete the workout repo and service class
 
     @GetMapping("/workouts")
     public List<Workout> displayAllWorkout(){
@@ -58,7 +53,7 @@ public class WorkoutController {
     @PutMapping("/workouts/{id}")
     public Workout updateWorkoutData(@Validated @PathVariable("id") Long workoutId,Workout oldWorkoutData){
         log.info("Request to update the specified workout data");
-        final Workout currentWorkout=ws.findByWorkoutId(workoutId)
+        final Workout currentWorkout=ws.findById(workoutId)
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,String.format(WORKOUT_DATA_NOT_FOUND,workoutId)));
         currentWorkout.setSet(oldWorkoutData.getSet());
         currentWorkout.setRep(oldWorkoutData.getRep());
@@ -72,7 +67,7 @@ public class WorkoutController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> deleteWorkout(@PathVariable("id") Long workoutId){
         log.info("Request to delete a workout");
-        Optional<Workout> deleteWorkouts=ws.findByWorkoutId(workoutId);
+        Optional<Workout> deleteWorkouts=ws.findById(workoutId);
         if(deleteWorkouts.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(String.format(WORKOUT_DATA_NOT_FOUND,workoutId));
         }

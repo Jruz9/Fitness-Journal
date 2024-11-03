@@ -14,8 +14,8 @@ import jakarta.persistence.*;
 
 public class Workout {
     @Id
-    @GeneratedValue
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long workoutId;
     @Column
     private int set;
     @Column
@@ -28,8 +28,8 @@ public class Workout {
     @Column
     private LocalDate date;
 
-    @ManyToOne
-    @JoinColumn(name="workout_id")
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name="workoutId",nullable = false)
     private WorkoutRecord workoutRecord;
     /**
      * A nullary empty workout object.
@@ -46,13 +46,14 @@ public class Workout {
      * @param date: the Date that the workout was created
      * @param workoutRecord: The Workout Record that is associated with the workouts
      */
-    public Workout(double duration, double weight, int rep, int set, int id, LocalDate date,WorkoutRecord workoutRecord) {
+    public Workout(double duration, double weight, int rep, int set, Long id, LocalDate date,WorkoutRecord workoutRecord) {
         this.duration = duration;
         this.weight = weight;
         this.rep = rep;
         this.set = set;
-        this.id = id;
+        this.workoutId = id;
         this.date=date;
+        this.workoutRecord=workoutRecord;
     }
 
     public double getDuration() {
@@ -87,12 +88,12 @@ public class Workout {
         this.set = set;
     }
 
-    public int getId() {
-        return id;
+    public Long getId() {
+        return workoutId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(Long id) {
+        this.workoutId = id;
     }
 
     

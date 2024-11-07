@@ -17,8 +17,7 @@ import java.util.Optional;
 public class WorkoutService {
 
     @Autowired
-    private WorkoutRepo workoutRepo;
-    private WorkoutRecordService wks;
+     WorkoutRepo workoutRepo;
 
     public Optional<Workout> findById(@NonNull Long workoutID){
         return  workoutRepo.findById(workoutID);

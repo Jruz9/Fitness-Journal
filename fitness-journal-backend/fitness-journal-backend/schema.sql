@@ -3,7 +3,7 @@
 create table if not exists 'workout'(
     id  bigint auto_increment,
     set int default 0,
-    reps int defualt 0,
+    reps int default 0,
     weight float default 0.0,
     workoutRecordId bigint not null,
     primary key(id),
@@ -12,7 +12,7 @@ create table if not exists 'workout'(
 
 create table if not exists 'workoutRecord'(
     workoutRecordId bigInt auto_increment,
-    workoutName var(255) defualt '',
+    workoutName var(255) default '',
     workoutDate datetime  default getDate(),
     primary key(workoutRecordId),
     -- decided not add foreign key to test if its needed to make the connection

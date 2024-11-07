@@ -10,14 +10,13 @@ import jakarta.persistence.*;
  */
 
 @Entity
-@Table(name= "workout")
-
+//@Table(name= "WORKOUT")
 public class Workout {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long workoutId;
+    private Long workId;
     @Column
-    private int set;
+    private int sessions;
     @Column
     private int rep;
     @Column
@@ -26,10 +25,10 @@ public class Workout {
     private double duration;
 
     @Column
-    private LocalDate date;
+    private LocalDate createdWorkoutTime;
 
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
-    @JoinColumn(name="workoutId",nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY,optional = true,cascade = CascadeType.MERGE)
+    @JoinColumn(name="workoutId")
     private WorkoutRecord workoutRecord;
     /**
      * A nullary empty workout object.
@@ -42,17 +41,17 @@ public class Workout {
      * @param duration: The time of the exercise
      * @param weight: The weight in LB for the exercise
      * @param rep: The repetition of the exercise
-     * @param set: The total set for the exercise
-     * @param date: the Date that the workout was created
+     * @param sessions: The total sessions for the exercise
+     * @param createdWorkoutTime: the Date that the workout was created
      * @param workoutRecord: The Workout Record that is associated with the workouts
      */
-    public Workout(double duration, double weight, int rep, int set, Long id, LocalDate date,WorkoutRecord workoutRecord) {
+    public Workout(double duration, double weight, int rep, int sessions, Long id, LocalDate createdWorkoutTime, WorkoutRecord workoutRecord) {
         this.duration = duration;
         this.weight = weight;
         this.rep = rep;
-        this.set = set;
-        this.workoutId = id;
-        this.date=date;
+        this.sessions = sessions;
+        this.workId = id;
+        this.createdWorkoutTime = createdWorkoutTime;
         this.workoutRecord=workoutRecord;
     }
 
@@ -80,20 +79,20 @@ public class Workout {
         this.rep = rep;
     }
 
-    public int getSet() {
-        return set;
+    public int getSessions() {
+        return sessions;
     }
 
-    public void setSet(int set) {
-        this.set = set;
+    public void setSessions(int sessions) {
+        this.sessions = sessions;
     }
 
     public Long getId() {
-        return workoutId;
+        return workId;
     }
 
     public void setId(Long id) {
-        this.workoutId = id;
+        this.workId = id;
     }
 
     
@@ -109,11 +108,11 @@ public class Workout {
         this.workoutRecord = workoutRecord;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getCreatedWorkoutTime() {
+        return createdWorkoutTime;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setCreatedWorkoutTime(LocalDate createdWorkoutTime) {
+        this.createdWorkoutTime = createdWorkoutTime;
     }
 }

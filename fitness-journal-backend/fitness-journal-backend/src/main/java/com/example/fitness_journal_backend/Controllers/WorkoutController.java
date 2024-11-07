@@ -55,7 +55,7 @@ public class WorkoutController {
         log.info("Request to update the specified workout data");
         final Workout currentWorkout=ws.findById(workoutId)
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,String.format(WORKOUT_DATA_NOT_FOUND,workoutId)));
-        currentWorkout.setSet(oldWorkoutData.getSet());
+        currentWorkout.setSessions(oldWorkoutData.getSessions());
         currentWorkout.setRep(oldWorkoutData.getRep());
         currentWorkout.setDuration(oldWorkoutData.getDuration());
         currentWorkout.setWeight(oldWorkoutData.getWeight());

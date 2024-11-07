@@ -22,9 +22,8 @@ public class WorkoutRecordServiceTest {
     @Test
     public void makeNewWorkoutRecord(){
         Workout workout=new Workout();
-        workout.setId(0L);
         workout.setRep(10);
-        workout.setSet(5);
+        workout.setSessions(5);
         workout.setWeight(10);
         workout.setDuration(2.00);
 

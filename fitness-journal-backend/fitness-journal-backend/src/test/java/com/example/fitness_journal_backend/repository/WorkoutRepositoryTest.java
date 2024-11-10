@@ -52,20 +52,21 @@ public class WorkoutRepositoryTest {
     @Test
     public void updateWorkout(){
         Workout workout= new Workout();
-        Workout unmodifiedWorkout= workoutService.saveWorkout(workout);
-
-        //modify original workout
         workout.setRep(3);
         workout.setSessions(3);
         workout.setDuration(2.00);
         workout.setWeight(20.0);
+        workout = workoutService.saveWorkout(workout);
+
+        //modify original workout
+        workout.setSessions(5);
+        workout.setRep(20);
+        workout=workoutService.saveWorkout(workout);
 
         //assets if they are not equal to prove modification was successful.
-        assertNotNull(unmodifiedWorkout);
-        assertNotEquals(workout.getRep(),unmodifiedWorkout.getRep());
-        assertNotEquals(workout.getSessions(),unmodifiedWorkout.getSessions());
-        assertNotEquals(workout.getDuration(),unmodifiedWorkout.getDuration());
-        assertNotEquals(workout.getWeight(),unmodifiedWorkout.getWeight());
+        assertNotNull(workout);
+        assertEquals(workout.getRep(),20);
+        assertEquals(workout.getSessions(),5);
     }
 
 @Test
@@ -94,6 +95,6 @@ public class WorkoutRepositoryTest {
     Workout foundWorkout= workoutService.findById(wk.getId()).orElse(null);
 
     assertNotNull(foundWorkout);
-    assertNotEquals(wk.getSessions(),foundWorkout.getSessions());
+    assertEquals(wk.getSessions(),foundWorkout.getSessions());
     }
 }

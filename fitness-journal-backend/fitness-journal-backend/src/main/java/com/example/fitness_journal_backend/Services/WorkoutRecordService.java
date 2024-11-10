@@ -45,6 +45,9 @@ public class WorkoutRecordService {
 
     public List<WorkoutRecord> getAllWorkoutRecordsFromLocalDate(LocalDate date){
         List<WorkoutRecord> workoutRecordAtThatDate=workoutRecordRepo.findWorkoutRecordByworkoutDate(date);
-        return workoutRecordAtThatDate;
+            return workoutRecordAtThatDate;
+    }
+    public WorkoutRecord getOneWorkoutRecord(Long id){
+        return workoutRecordRepo.getReferenceById(id);
     }
 }

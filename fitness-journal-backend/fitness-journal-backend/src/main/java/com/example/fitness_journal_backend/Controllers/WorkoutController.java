@@ -29,7 +29,7 @@ import org.springframework.web.server.ResponseStatusException;
 public class WorkoutController {
     
     @Autowired
-     private WorkoutService ws;
+    private WorkoutService ws;
 
     private static final String WORKOUT_DATA_NOT_FOUND= "Could not find the workout associated with the id";
 
@@ -43,7 +43,7 @@ public class WorkoutController {
     }
 
     //Create new Workout
-    @PostMapping("/workout")
+    @PostMapping("/workouts")
     public Workout createWorkoutData(@Validated @RequestBody Workout workout){
         log.info("Request to create new workout data: {}", workout);
         return ws.saveWorkout(workout);
@@ -63,7 +63,7 @@ public class WorkoutController {
     }
 
     //depending on requirements changing,multi delete could be good addition.
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/workouts/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> deleteWorkout(@PathVariable("id") Long workoutId){
         log.info("Request to delete a workout");

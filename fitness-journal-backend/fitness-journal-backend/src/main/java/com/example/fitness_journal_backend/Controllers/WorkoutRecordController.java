@@ -16,11 +16,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 import com.example.fitness_journal_backend.Entities.WorkoutRecord;
 import com.example.fitness_journal_backend.Services.WorkoutRecordService;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -39,6 +42,18 @@ public class WorkoutRecordController {
     @GetMapping("/records")
     public List<WorkoutRecord> displayAllExerciseRecords(){
         return wrs.getAllWorkoutRecord();
+    }
+
+    @GetMapping("/records/{id}")
+    public WorkoutRecord getOneWorkoutRecord(@Validated @PathVariable("id") Long id){
+        try{
+            WorkoutRecord record= wrs.getOneWorkoutRecord(id);
+            return record;
+        }
+        catch(EntityNotFoundException e){
+            throw new EntityNotFoundException("Record with this id was not found");
+        }
+        
     }
 
     // create new record
@@ -78,6 +93,13 @@ public class WorkoutRecordController {
         return ResponseEntity.status(HttpStatus.OK).body("Workout Record deletion was successful");
     }
 
+    @GetMapping("/recordRange")
+    public List<WorkoutRecord> getWorkoutRecordFromDate(LocalDate startDate){
+        List<WorkoutRecord> workoutRecordsList= wrs.getAllWorkoutRecordsFromLocalDate(startDate);
+        if (workoutRecordsList.get(0).getWorkoutDate() != startDate) {
+            throw new  EntityNotFoundException("WorkoutRecord with this date does not exist or has not been found in the database.");
+            }
+            return workoutRecordsList;
 
-
+        }
 }

@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.fitness_journal_backend.Entities.Workout;
+import com.example.fitness_journal_backend.Entities.WorkoutRecord;
+import com.example.fitness_journal_backend.Services.WorkoutRecordService;
 import com.example.fitness_journal_backend.Services.WorkoutService;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -30,6 +32,9 @@ public class WorkoutController {
     
     @Autowired
     private WorkoutService ws;
+
+    @Autowired
+    private WorkoutRecordService wrs;
 
     private static final String WORKOUT_DATA_NOT_FOUND= "Could not find the workout associated with the id";
 
@@ -42,10 +47,12 @@ public class WorkoutController {
         return ws.getAllWorkout();
     }
 
-    //Create new Workout
-    @PostMapping("/workouts")
-    public Workout createWorkoutData(@Validated @RequestBody Workout workout){
+    //Create new Workout and sets the workout to be a list of workouts assciatued with the workout Record.
+    @PostMapping("/workoutRecord/{workoutRecordId}/workout")
+    public Workout createWorkoutData(@Validated @RequestBody Workout workout,@PathVariable Long workoutRecordId){
         log.info("Request to create new workout data: {}", workout);
+        WorkoutRecord workoutRecord= wrs.findByWorkoutRecordId(workoutRecordId).orElseThrow(() ->new RuntimeException("WorkoutRecord Not Found"));
+        workoutRecord.setWorkoutData(List.of(workout));
         return ws.saveWorkout(workout);
     }
 
@@ -75,4 +82,12 @@ public class WorkoutController {
         return ResponseEntity.status(HttpStatus.OK).body("Workout deletion was successful");
     }
 
+
+    @GetMapping("/WorkoutRecord/{workoutRecordId}/workout")
+    public List<Workout> getWorkout(@PathVariable Long workoutRecordId){
+        WorkoutRecord workout= wrs.findByWorkoutRecordId(workoutRecordId).orElseThrow
+        (() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Workout Record is not found."));
+        
+        return workout.getWorkoutData();
+    }
 }

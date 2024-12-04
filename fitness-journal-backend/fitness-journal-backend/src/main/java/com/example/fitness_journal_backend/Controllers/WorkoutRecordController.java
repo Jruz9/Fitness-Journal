@@ -51,9 +51,10 @@ public class WorkoutRecordController {
     // create new record
 
     @PostMapping("/records")
-    public WorkoutRecord createWorkoutRecord(@Validated @RequestBody WorkoutRecord workoutRecord){
+    public ResponseEntity<WorkoutRecord> createWorkoutRecord(@Validated @RequestBody WorkoutRecord workoutRecord){
         log.info("Request to create a new workout record : {}",workoutRecord);
-        return wrs.saveWorkoutRecord(workoutRecord);
+        wrs.saveWorkoutRecord(workoutRecord);
+        return new ResponseEntity<WorkoutRecord>(workoutRecord,HttpStatus.CREATED);
     }
 
 

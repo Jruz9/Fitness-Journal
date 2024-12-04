@@ -1,63 +1,54 @@
 package com.example.fitness_journal_backend.ControllerTesting;
 
-
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.json.JacksonTester;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-
-
 import com.example.fitness_journal_backend.Controllers.WorkoutRecordController;
-import com.example.fitness_journal_backend.Entities.WorkoutRecord;
+
 import com.example.fitness_journal_backend.Services.WorkoutRecordService;
 // used this for the testing implementation of test: https://thepracticaldeveloper.com/guide-spring-boot-controller-tests/#strategy-1-spring-mockmvc-example-in-standalone-mode
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.example.fitness_journal_backend.ControllerAdvice.WorkoutRecordExceptionHandler;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-
-@SpringBootTest
-@ExtendWith(MockitoExtension.class)
+//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = FitnessJournalBackendApplication.class)
+@ExtendWith(SpringExtension.class)
+@WebMvcTest(WorkoutRecordController.class)
+@WithMockUser(username = "user",roles = {"USER"}) // needed for security reason might delete later
 public class WorkoutRecordControllerTest {
 
-    
+    @Autowired
+    private MockMvc mvc;
 
     @MockBean
     private WorkoutRecordService wrs;
 
-    @InjectMocks
-    private WorkoutRecordController workoutRecordController;
+//    @InjectMocks
+//    private WorkoutRecordController;
+//
+//    private  JacksonTester<WorkoutRecord> jsonWorkoutRecord;
 
-    private  JacksonTester<WorkoutRecord> jsonWorkoutRecord;
 
-    private MockMvc mvc;
-    @BeforeEach
-    public void setup(){
-        JacksonTester.initFields(this, new ObjectMapper());
-        //TODO: Create the controller advice class and filter class testing.
-
-         mvc= MockMvcBuilders.standaloneSetup(workoutRecordController)
-         .setControllerAdvice(new WorkoutRecordExceptionHandler())
-         .addFilters()
-         .build();
-    }
 
     @Test
-    public void createWorkoutRecordTest(WorkoutRecord w) throws Exception{
-        MockHttpServletResponse response= mvc.perform(
-                post("/").contentType(MediaType.APPLICATION_JSON).content(jsonWorkoutRecord.write(new WorkoutRecord()).getJson())
-        ).andReturn().getResponse();
-        //then
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
-    }
+    public void getAllWorkoutRecordsAPI() throws Exception{
+            //then
+            mvc.perform(MockMvcRequestBuilders
+                            .get("/api/v1/records")
+                            .accept(MediaType.APPLICATION_JSON))
+                    .andDo(print())
+                    .andExpect(status().isOk())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$").exists());
+            // database is empty for this test
+//                    .andExpect(MockMvcResultMatchers.jsonPath("$.[*].id").isNotEmpty());
+
+        }
 }
+

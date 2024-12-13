@@ -24,6 +24,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 //@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = FitnessJournalBackendApplication.class)
+/*
+References
+https://howtodoinjava.com/spring-boot2/testing/spring-boot-mockmvc-example/
+https://www.baeldung.com/spring-boot-testing
+
+
+*/
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(WorkoutRecordController.class)
 @WithMockUser(username = "user",roles = {"USER"}) // needed for security reason might delete later
@@ -75,6 +82,23 @@ public class WorkoutRecordControllerTest {
         } catch (Exception e){
             throw new RuntimeException(e);
         }
+        }
+
+        @Test
+        public void updateWorkoutRecordAPITest()throws Exception{
+        mvc.perform(MockMvcRequestBuilders
+                .put("")
+                .with(csrf())
+                .content(asJsonString(new WorkoutRecord(2L,LocalDate.now(),"sit ups",List.of(new Workout()))))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+        }
+
+        @Test
+        public void deleteWorkoutRecordAPITest()throws Exception{
+        mvc.perform(MockMvcRequestBuilders
+                .delete("/api/v1/records/{id}",1))
+                .andExpect(status().isOk());
         }
 }
 

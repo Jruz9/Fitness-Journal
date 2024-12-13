@@ -31,10 +31,10 @@ import org.springframework.web.server.ResponseStatusException;
 public class WorkoutController {
     
     @Autowired
-    private WorkoutService ws;
+    private WorkoutService workoutService;
 
     @Autowired
-    private WorkoutRecordService wrs;
+    private WorkoutRecordService workoutRecordService;
 
     private static final String WORKOUT_DATA_NOT_FOUND= "Could not find the workout associated with the id";
 
@@ -44,29 +44,29 @@ public class WorkoutController {
 
     @GetMapping("/workouts")
     public List<Workout> displayAllWorkout(){
-        return ws.getAllWorkout();
+        return workoutService.getAllWorkout();
     }
 
     //Create new Workout and sets the workout to be a list of workouts assciatued with the workout Record.
     @PostMapping("/workoutRecord/{workoutRecordId}/workout")
     public Workout createWorkoutData(@Validated @RequestBody Workout workout,@PathVariable Long workoutRecordId){
         log.info("Request to create new workout data: {}", workout);
-        WorkoutRecord workoutRecord= wrs.findByWorkoutRecordId(workoutRecordId).orElseThrow(() ->new RuntimeException("WorkoutRecord Not Found"));
+        WorkoutRecord workoutRecord= workoutRecordService.findByWorkoutRecordId(workoutRecordId).orElseThrow(() ->new RuntimeException("WorkoutRecord Not Found"));
         workoutRecord.setWorkoutData(List.of(workout));
-        return ws.saveWorkout(workout);
+        return workoutService.saveWorkout(workout);
     }
 
 //Update a single workout using id and single workout information
     @PutMapping("/workouts/{id}")
     public Workout updateWorkoutData(@Validated @PathVariable("id") Long workoutId,Workout oldWorkoutData){
         log.info("Request to update the specified workout data");
-        final Workout currentWorkout=ws.findById(workoutId)
+        final Workout currentWorkout= workoutService.findById(workoutId)
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,String.format(WORKOUT_DATA_NOT_FOUND,workoutId)));
         currentWorkout.setSessions(oldWorkoutData.getSessions());
         currentWorkout.setRep(oldWorkoutData.getRep());
         currentWorkout.setDuration(oldWorkoutData.getDuration());
         currentWorkout.setWeight(oldWorkoutData.getWeight());
-        return ws.saveWorkout(currentWorkout);
+        return workoutService.saveWorkout(currentWorkout);
     }
 
     //depending on requirements changing,multi delete could be good addition.
@@ -74,18 +74,18 @@ public class WorkoutController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> deleteWorkout(@PathVariable("id") Long workoutId){
         log.info("Request to delete a workout");
-        Optional<Workout> deleteWorkouts=ws.findById(workoutId);
+        Optional<Workout> deleteWorkouts= workoutService.findById(workoutId);
         if(deleteWorkouts.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(String.format(WORKOUT_DATA_NOT_FOUND,workoutId));
         }
-        ws.deleteWorkoutFromWorkoutRecord(deleteWorkouts.get());
+        workoutService.deleteWorkoutFromWorkoutRecord(deleteWorkouts.get());
         return ResponseEntity.status(HttpStatus.OK).body("Workout deletion was successful");
     }
 
 
     @GetMapping("/WorkoutRecord/{workoutRecordId}/workout")
     public List<Workout> getWorkout(@PathVariable Long workoutRecordId){
-        WorkoutRecord workout= wrs.findByWorkoutRecordId(workoutRecordId).orElseThrow
+        WorkoutRecord workout= workoutRecordService.findByWorkoutRecordId(workoutRecordId).orElseThrow
         (() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Workout Record is not found."));
         
         return workout.getWorkoutData();

@@ -1,8 +1,6 @@
--- Fitness Journal Database schema
-
-create table if not exists 'workout'(
-    id  bigint auto_increment,
-    set int default 0,
+create table if not exists workout(
+    id  bigserial,
+    sessions int default 0,
     reps int default 0,
     weight float default 0.0,
     workoutRecordId bigint not null,
@@ -10,11 +8,9 @@ create table if not exists 'workout'(
     foreign key (workoutRecordId) references workoutRecord(workoutRecordId)
 );
 
-create table if not exists 'workoutRecord'(
-    workoutRecordId bigInt auto_increment,
+create table if not exists workoutRecord(
+    workoutRecordId bigserial,
     workoutName var(255) default '',
     workoutDate datetime  default getDate(),
-    primary key(workoutRecordId),
-    -- decided not add foreign key to test if its needed to make the connection
+    primary key(workoutRecordId)
 );
-

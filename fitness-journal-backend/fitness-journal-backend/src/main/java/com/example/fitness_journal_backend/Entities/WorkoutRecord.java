@@ -11,17 +11,18 @@ import java.util.List;
  * [arm curls,12:00 utc,{[id=0,set=1,rep=10,weight=20lb,duration=0.00],[id=1,set=2,rep=8,weight=25lb,duration=0.00.....]},]
  */
 @Entity
-//@Table(name = "workoutRecord")
+@Table(name = "workoutrecord")
 public class WorkoutRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "workoutrecordid")
     private Long id;
-    @DateTimeFormat(pattern = "dd-MMM-YYYY")
-    @Column
-    private LocalDate workoutDate; 
-    @Column
+    @Column(name = "workoutname")
     private String workoutName;
+    @DateTimeFormat(pattern = "dd-MMM-YYYY")
+    @Column(name = "workoutedate")
+    private LocalDate workoutDate;
     //A list of workouts ex: [[][][]]
     //removed cascade https://stackoverflow.com/questions/13370221/persistentobjectexception-detached-entity-passed-to-persist-thrown-by-jpa-and-h
     @OneToMany(mappedBy = "workoutRecord",cascade = CascadeType.MERGE)

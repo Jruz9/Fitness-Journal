@@ -1,10 +1,10 @@
 -- CREATE SCHEMA `fitness_journal` ;
 -- Order Matter for which tables first.:
-create table if not exists workoutrecord(
-    workoutrecordid bigInt auto_increment,
-    workoutname varchar(255) default '',
-    workoutdate datetime default Now(),
-    primary key(workoutRecordId)
+CREATE TABLE IF NOT EXISTS workoutrecord (
+    workoutrecordid BIGINT AUTO_INCREMENT,
+    workoutname VARCHAR(255) DEFAULT '',
+    workoutdate DATETIME DEFAULT NOW(),
+    PRIMARY KEY (workoutRecordId)
 );
 
 CREATE TABLE IF NOT EXISTS workout (
@@ -12,6 +12,8 @@ CREATE TABLE IF NOT EXISTS workout (
     sessions INT DEFAULT 0,
     reps INT DEFAULT 0,
     weight FLOAT DEFAULT 0.0,
+    duration FLOAT DEFAULT 0.0,
+    createdworkoutdate DATETIME,
     workoutrecordid BIGINT NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (workoutrecordId)

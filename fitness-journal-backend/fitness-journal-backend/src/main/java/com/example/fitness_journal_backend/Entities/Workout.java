@@ -15,16 +15,16 @@ public class Workout {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long workId;
-    @Column
+    @Column(name = "sessions")
     private int sessions;
-    @Column
+    @Column(name = "reps")
     private int rep;
-    @Column
+    @Column(name = "weight")
     private double weight; // uses pound in the backend :) ;
-    @Column
+    @Column(name = "duration")
     private double duration;
 
-    @Column
+    @Column(name = "createdworkoutdate")
     private LocalDate createdWorkoutTime;
 
     @ManyToOne(fetch = FetchType.LAZY,optional = true,cascade = CascadeType.MERGE)

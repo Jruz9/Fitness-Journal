@@ -1,16 +1,17 @@
 create table if not exists workout(
-    id  bigserial,
-    sessions int default 0,
+    id  bigint auto_increment,
+    session int default 0,
     reps int default 0,
     weight float default 0.0,
-    workoutRecordId bigint not null,
+    workoutrecordid bigint not null,
     primary key(id),
-    foreign key (workoutRecordId) references workoutRecord(workoutRecordId)
+    foreign key (workoutrecordId) references workoutrecord(workoutrecordid)
 );
 
-create table if not exists workoutRecord(
-    workoutRecordId bigserial,
-    workoutName var(255) default '',
-    workoutDate datetime  default getDate(),
-    primary key(workoutRecordId)
+create table if not exists workoutrecord(
+    workoutrecordid bigInt auto_increment,
+    workoutname var(255) default '',
+    workoutdate datetime default getDate(),
+    primary key(workoutRecordId),
+    -- decided not add foreign key to test if its needed to make the connection
 );

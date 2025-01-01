@@ -21,7 +21,7 @@ public class WorkoutRecord {
     @Column(name = "workoutname")
     private String workoutName;
     @DateTimeFormat(pattern = "dd-MMM-YYYY")
-    @Column(name = "workoutedate")
+    @Column(name = "workoutdate")
     private LocalDate workoutDate;
     //A list of workouts ex: [[][][]]
     //removed cascade https://stackoverflow.com/questions/13370221/persistentobjectexception-detached-entity-passed-to-persist-thrown-by-jpa-and-h

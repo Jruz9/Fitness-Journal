@@ -4,6 +4,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -39,8 +40,7 @@ public class WorkoutRecordController {
     @GetMapping("/records/{id}")
     public WorkoutRecord getOneWorkoutRecord(@Validated @PathVariable("id") Long id){
         try{
-            WorkoutRecord record= wrs.getOneWorkoutRecord(id);
-            return record;
+            return wrs.getOneWorkoutRecord(id);
         }
         catch(EntityNotFoundException e){
             throw new EntityNotFoundException("Record with this id was not found");
@@ -54,7 +54,7 @@ public class WorkoutRecordController {
     public ResponseEntity<WorkoutRecord> createWorkoutRecord(@Validated @RequestBody WorkoutRecord workoutRecord){
         log.info("Request to create a new workout record : {}",workoutRecord);
         wrs.saveWorkoutRecord(workoutRecord);
-        return new ResponseEntity<WorkoutRecord>(workoutRecord,HttpStatus.CREATED);
+        return new ResponseEntity<>(workoutRecord, HttpStatus.CREATED);
     }
 
 

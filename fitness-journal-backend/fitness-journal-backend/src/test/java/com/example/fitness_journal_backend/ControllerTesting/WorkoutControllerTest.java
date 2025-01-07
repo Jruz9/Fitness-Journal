@@ -54,7 +54,7 @@ public class WorkoutControllerTest {
     @Test
     public void createWorkoutAPITest() throws  Exception{
         mvc.perform(MockMvcRequestBuilders.post("/api/v1/workoutRecord/{workoutRecordId}/workout",1)
-                .with(csrf()).content(asJsonString(new Workout(1.00,20.0,3,6,1L, LocalDate.now(),workoutRecordService.findByWorkoutRecordId(1L).get())))
+                .with(csrf()).content(asJsonString(new Workout(1.00,20.0,3,6,1L, LocalDate.now())))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
@@ -72,7 +72,7 @@ public class WorkoutControllerTest {
     @Test
     public  void updateWorkoutAPITest()throws Exception{
         mvc.perform(MockMvcRequestBuilders.put("/api/v1/workouts/{id}",1).with(csrf())
-                .content(asJsonString(new Workout(1.00,30.0,4,6,1L, LocalDate.now(),workoutRecordService.findByWorkoutRecordId(1L).get())))
+                .content(asJsonString(new Workout(1.00,30.0,4,6,1L, LocalDate.now())))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());

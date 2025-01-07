@@ -1,7 +1,9 @@
 package com.example.fitness_journal_backend.Security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.client.AbstractClientHttpRequest;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
 
@@ -14,9 +16,9 @@ public class SecurityConfig {
 
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
-        return httpSecurity.
-                authorizeHttpRequests((auth)->auth.anyRequest()
+        return httpSecurity.authorizeHttpRequests((auth)->auth.anyRequest()
                         .permitAll())
+                .csrf(AbstractHttpConfigurer::disable)
                 .build();
     }
 }

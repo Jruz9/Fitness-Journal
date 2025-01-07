@@ -1,4 +1,5 @@
 package com.example.fitness_journal_backend.Controllers;
+import com.example.fitness_journal_backend.Controllers.exceptions.WorkoutRecordNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,13 +40,15 @@ public class WorkoutRecordController {
 
     @GetMapping("/records/{id}")
     public WorkoutRecord getOneWorkoutRecord(@Validated @PathVariable("id") Long id){
+        log.info("Getting a single workout record from database");
         try{
-            return wrs.getOneWorkoutRecord(id);
+            WorkoutRecord wk=wrs.getOneWorkoutRecord(id);
+            return wk;
         }
-        catch(EntityNotFoundException e){
-            throw new EntityNotFoundException("Record with this id was not found");
+        catch(WorkoutRecordNotFoundException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"WorkoutRecord NOT FOUND",e);
         }
-        
+
     }
 
     // create new record

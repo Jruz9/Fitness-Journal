@@ -21,8 +21,9 @@ public class Workout {
     private int rep;
     @Column(name = "weight")
     private double weight; // uses pound in the backend :) ;
+    //Duration represents time in seconds.
     @Column(name = "duration")
-    private double duration;
+    private double duration; //TODO: change type to Integer for api compatibility
 
     @Column(name = "createdworkoutdate")
     private LocalDate createdWorkoutTime;
@@ -43,16 +44,14 @@ public class Workout {
      * @param rep: The repetition of the exercise
      * @param sessions: The total sessions for the exercise
      * @param createdWorkoutTime: the Date that the workout was created
-     * @param workoutRecord: The Workout Record that is associated with the workouts
      */
-    public Workout(double duration, double weight, int rep, int sessions, Long id, LocalDate createdWorkoutTime, WorkoutRecord workoutRecord) {
+    public Workout(double duration, double weight, int rep, int sessions, Long id, LocalDate createdWorkoutTime) {
         this.duration = duration;
         this.weight = weight;
         this.rep = rep;
         this.sessions = sessions;
         this.workId = id;
         this.createdWorkoutTime = createdWorkoutTime;
-        this.workoutRecord=workoutRecord;
     }
 
     public double getDuration() {

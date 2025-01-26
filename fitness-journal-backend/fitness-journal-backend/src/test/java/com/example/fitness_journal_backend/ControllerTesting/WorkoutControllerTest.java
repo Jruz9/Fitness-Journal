@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -20,6 +21,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -80,8 +82,17 @@ public class WorkoutControllerTest {
 
     @Test
     public  void deleteWorkoutAPITest() throws Exception{
+        Workout exerciseWorkout= new Workout();
+        exerciseWorkout.setSessions(3);
+        exerciseWorkout.setRep(10);
+        exerciseWorkout.setDuration(60.0);
+        exerciseWorkout.setCreatedWorkoutTime(LocalDate.now());
+        exerciseWorkout.setWeight(10.0);
+        Mockito.when(service.findById(0L)).thenReturn(Optional.of(exerciseWorkout));
         mvc.perform(MockMvcRequestBuilders
-                .delete("/api/v1/workouts/{id}",1).with(csrf()))
+                .delete("/api/v1/workouts/{id}",0)
+                        .with(csrf())
+                )
                 .andExpect(status().isOk());
     }
 

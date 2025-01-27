@@ -1,7 +1,6 @@
 # Fitness-Journal
 
 ## ABOUT
-----
 Fitness Journal is a full stack application that allows you to track your workouts from a sleek and easy to use website.
 It enables users to input their workout information manually or from your favorite fitness service.
 Fitness Journal is well suited for people who want track their fitness in a private and local instance vs other alternatives online.
@@ -52,8 +51,7 @@ To run the application without compiling to a jar you can press the green button
 
 ```FitnessJournalBackendApplication.java```
 
-# Technologies used in application
----
+## Technologies
 - Backend
   - Java 17
   - Spring boot 3.1.3

@@ -6,6 +6,15 @@ Fitness Journal is an application that allows users to track their workouts.
 Enables users to input each set and rep with weight and duration.Additionally,
 it wil allow users to make workout plans in week format.
 
+
+# Motivations
+
+
+# Quick Start
+
+
+# Usage
+
 # FEATURES
 ---
 - Workout Journal
@@ -23,3 +32,7 @@ it wil allow users to make workout plans in week format.
 - Frontend
   - React
   - Node.js
+
+  
+
+# Contributing 

@@ -112,7 +112,9 @@ static final WorkoutRecord exampleRecord= new WorkoutRecord(1L, LocalDate.now(),
         Mockito.when(wrs.findByWorkoutRecordId(1L)).thenReturn(Optional.of(deleteRecord));
         
         mvc.perform(MockMvcRequestBuilders
-                .delete("/api/v1/records/{id}",1L))
+                .delete("/api/v1/records/{id}",1L)
+                        .with(csrf())
+                )
                 .andDo(print())
                 .andExpect(status().isOk());
         }

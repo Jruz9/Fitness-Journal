@@ -14,7 +14,7 @@ import jakarta.persistence.*;
 public class Workout {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long workId;
+    private Long id;
     @Column(name = "sessions")
     private int sessions;
     @Column(name = "reps")
@@ -29,7 +29,7 @@ public class Workout {
     private LocalDate createdWorkoutTime;
 
     @ManyToOne(fetch = FetchType.LAZY,optional = true,cascade = CascadeType.MERGE)
-    @JoinColumn(name="workoutId")
+    @JoinColumn(name="workoutrecordjoin") //todo: rename later
     private WorkoutRecord workoutRecord;
     /**
      * A nullary empty workout object.
@@ -50,7 +50,7 @@ public class Workout {
         this.weight = weight;
         this.rep = rep;
         this.sessions = sessions;
-        this.workId = id;
+        this.id = id;
         this.createdWorkoutTime = createdWorkoutTime;
     }
 
@@ -87,11 +87,11 @@ public class Workout {
     }
 
     public Long getId() {
-        return workId;
+        return id;
     }
 
     public void setId(Long id) {
-        this.workId = id;
+        this.id = id;
     }
 
     

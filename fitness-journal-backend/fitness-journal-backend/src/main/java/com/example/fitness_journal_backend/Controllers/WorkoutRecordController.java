@@ -54,10 +54,17 @@ public class WorkoutRecordController {
     // create new record
 
     @PostMapping("/records")
-    public ResponseEntity<WorkoutRecord> createWorkoutRecord(@Validated @RequestBody WorkoutRecord workoutRecord){
+    public ResponseEntity<?> createWorkoutRecord(@Validated @RequestBody WorkoutRecord workoutRecord){
         log.info("Request to create a new workout record : {}",workoutRecord);
-        wrs.saveWorkoutRecord(workoutRecord);
-        return new ResponseEntity<>(workoutRecord, HttpStatus.CREATED);
+        try{
+            wrs.saveWorkoutRecord(workoutRecord);
+            return new ResponseEntity<>(workoutRecord, HttpStatus.CREATED);
+        }
+        catch(Exception e){
+            log.info("Failed creation of the new workout record: {}.",e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed creation of the new workout record.");
+
+        }
     }
 
 

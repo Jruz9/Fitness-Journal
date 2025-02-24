@@ -2,7 +2,9 @@ package com.example.fitness_journal_backend.Entities;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * Creates the workout object.
@@ -26,6 +28,8 @@ public class Workout {
     private double duration; //TODO: change type to Integer for api compatibility
 
     @Column(name = "createdworkoutdate")
+    @DateTimeFormat(pattern = "YYYY-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd")
     private LocalDate createdWorkoutTime;
 
     @ManyToOne(fetch = FetchType.LAZY,optional = true,cascade = CascadeType.MERGE)
@@ -46,10 +50,10 @@ public class Workout {
      * @param createdWorkoutTime: the Date that the workout was created
      */
     public Workout(double duration, double weight, int rep, int sessions, Long id, LocalDate createdWorkoutTime) {
+        this.sessions = sessions;
         this.duration = duration;
         this.weight = weight;
         this.rep = rep;
-        this.sessions = sessions;
         this.id = id;
         this.createdWorkoutTime = createdWorkoutTime;
     }

@@ -39,14 +39,15 @@ public class WorkoutRecordController {
     }
 
     @GetMapping("/records/{id}")
-    public WorkoutRecord getOneWorkoutRecord(@Validated @PathVariable("id") Long id){
-        log.info("Getting a single workout record from database");
+    public ResponseEntity<WorkoutRecord> getOneWorkoutRecord(@PathVariable("id") Long id){
+        log.info("Getting a single workout record with Id",id);
         try{
             WorkoutRecord wk=wrs.getOneWorkoutRecord(id);
-            return wk;
+            return ResponseEntity.ok(wk);
         }
         catch(WorkoutRecordNotFoundException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"WorkoutRecord NOT FOUND",e);
+            log.warn("Workout record with ID: {} not found",id);
+            return ResponseEntity.notFound().build();
         }
 
     }

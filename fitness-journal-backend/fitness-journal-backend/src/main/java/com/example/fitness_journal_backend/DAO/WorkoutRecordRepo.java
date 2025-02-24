@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface WorkoutRecordRepo extends JpaRepository<WorkoutRecord,Long> {
 
-    public Optional<WorkoutRecord> findWorkoutRecordById(Long id);
+    Optional<WorkoutRecord> findWorkoutRecordById(Long id);
 
     List<WorkoutRecord> findWorkoutRecordByworkoutDate(LocalDate time);
 

@@ -1,4 +1,5 @@
 package com.example.fitness_journal_backend.Entities;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -20,7 +21,8 @@ public class WorkoutRecord {
     private Long id;
     @Column(name = "workoutname")
     private String workoutName;
-    @DateTimeFormat(pattern = "dd-MMM-YYYY")
+    @DateTimeFormat(pattern = "YYYY-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd")
     @Column(name = "workoutdate")
     private LocalDate workoutDate;
     //A list of workouts ex: [[][][]]

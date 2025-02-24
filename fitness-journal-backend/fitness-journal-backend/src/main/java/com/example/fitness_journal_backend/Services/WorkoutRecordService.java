@@ -1,5 +1,6 @@
 package com.example.fitness_journal_backend.Services;
 
+import com.example.fitness_journal_backend.Controllers.exceptions.WorkoutRecordNotFoundException;
 import com.example.fitness_journal_backend.DAO.WorkoutRecordRepo;
 import com.example.fitness_journal_backend.Entities.Workout;
 import com.example.fitness_journal_backend.Entities.WorkoutRecord;
@@ -28,7 +29,7 @@ public class WorkoutRecordService {
     }
 
     public  Optional<WorkoutRecord> findByWorkoutRecordId(@Nonnull Long id){
-        return workoutRecordRepo.findWorkoutRecordById(id);
+        return Optional.of(workoutRecordRepo.findById(id).get());
     }
     public List<WorkoutRecord> findByWorkoutRecordNames(String name){
         return workoutRecordRepo.findWorkoutRecordByworkoutName(name);
